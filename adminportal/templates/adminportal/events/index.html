@@ -1,0 +1,74 @@
+{% extends "adminportal/base.html" %}
+{% load static %}
+{% load custom_filters %}
+
+{% block title %}Events {% endblock %}
+
+
+{% block page_title %} Events {% endblock %}
+{% block  breadcrumb %}
+    <li class="breadcrumb-item active"> Events </li>
+{% endblock %}
+
+{% block  content_area %}
+<section class="section orders">
+  <div class="row">
+
+
+    <div class="action-buttons d-flex justify-content-end mb-2">
+      <div class="d-flex justify-content-between">
+        <a  href="{% url 'admin-add-event' %}" class="btn btn-success"> Create New  </a>
+      </div>
+    </div>
+
+    <div class="col-lg-12">
+
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title"> Events  </h5> 
+          
+          <table class="table table-borderless datatable">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Title</th>
+                <th scope="col">Date</th>
+                <th scope="col">Description</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              {% for event in events %}
+                  <tr>
+                      <th scope="row">
+                        <a href="{% url 'admin-view-event' event.id %}" >
+                          #{{  forloop.counter }}</a>
+                      </th>
+                      <td>{{event.title }}</td>
+                      <td>{{ event.date | date:'d-M-Y' }}</td>
+                      <td>
+                        <a href="{% url 'admin-view-event' event.id %}" class="text-primary">
+                          {{ event.description |slice_description:50 | safe }}
+                      </a>
+                      </td>
+                      
+                  </tr>
+              {% endfor %}
+            </tbody>
+            
+          </table>
+
+
+        </div>
+      </div>
+
+
+    </div>
+
+
+
+  </div>
+</section> 
+
+{% endblock %}
+ 

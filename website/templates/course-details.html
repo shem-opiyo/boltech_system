@@ -1,0 +1,116 @@
+{% extends "base.html" %}
+{% load static %}
+{% load custom_filters %}
+
+{%  block title %} Course Details || Boltech Training Institute {% endblock %}
+
+
+{% block  content %}
+        <section class="breadcrumbs-area bg-3 ptb-110 bg-opacity bg-relative">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 text-center">
+                        <div class="breadcrumbs">
+                            <h2 class="page-title">Our Top Courses</h2>
+                            <ul>
+                                <li>
+                                    <a class="active" href="{% url 'courses' %}">Home</a>
+                                </li>
+                                <li>
+                                    <a>Pages</a>
+                                </li>
+                                <li>Courses Details</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Start page content -->
+        <section class="courses-details pt-110 pb-80">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 col-md-8">
+                        <div class="course-left-sidebar">
+                            <div class="course-details-img">
+                                <img alt="" src="{{ course.image.url }}">
+                                <div class="blog-meta">
+                                    <span class="published3">
+                                        <i class="icofont icofont-ui-calendar"></i>
+                                        {{ course.updated_at|strftime:"%d.%m.%Y" }}
+                                    </span>
+                                    <span class="published4">
+                                        <a href="#">
+                                            <i class="icofont icofont-comment"></i>
+                                            20
+                                        </a>
+                                    </span>
+                                </div>
+                                <div class="free-area">
+                                    <div class="free-text">
+                                        <p>{{course.name }}</p>
+                                    </div>
+                                    <div class="free-button">
+                                        <!-- <h3>Free</h3> -->
+                                        <button target="_blank" class="submit" type="submit"
+                                            onclick='window.open("/register/" , "_blank")'
+                                        > Take This Courses </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-7 col-md-12">
+                                    <div class="courses-information gray-bg">
+                                        <h3 class="sidebar-title">Courses Information </h3>
+                                        <ul class="sidebar-menu">
+                                            <!-- <li>Levels :<span>Beginner</span></li> -->
+                                            <li>Start On :<span>{{course.start_on|strftime:"%d.%m.%Y"}}</span></li>
+                                            <li>Duration :<span>{{ course.duration}} Months</span></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div> 
+                            <div class="about-lectures mt-40 mb-40">
+                                <h3>About Lectures</h3>
+                                <p>We have very competent and experienced Lecturers who have a diverse knowledge and experience of the courses they Teach.</p>
+                            </div>
+                            <div class="about-lectures">
+                                <h3>Courses Benefits</h3>
+                                <p>These courses will equip you with the knowledge you will require to get into this rapidly changing technology field whereby you will not require employement to earn since you can start your own business. And if you get employed the Salary is Good.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4">
+                        <div class="course-sidebar mrg-xs">
+                            <div class="course-categoris">
+                                <h3 class="cate-title">Categories</h3>
+                                <ul>
+                                    {% for course in popular_courses %}
+                                    <li><a href="{% url 'course-details' course.slug  %}">{{ course.name }}<span>{{course.duration }}</span></a></li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                            <div class="popular-courses">
+                                <h3 class="cate-title">Popular Courses</h3>
+                                {% for course  in popular_courses %}
+                                <div class="categori-list-one">
+                                    <div class="categori-list-img">
+                                        <a href="{% url 'course-details' course.slug  %}">
+                                            <img src="{{ course.image.url }}"  width="20" height="60">
+                                        </a>
+                                    </div>
+                                    <div class="post-details">
+                                        <span>Date : {{course.created_at|strftime:"%d.%m.%Y"}}</span>
+                                        <p>{{ course.name | title }} </p>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- End page content -->
+
+{% endblock %}

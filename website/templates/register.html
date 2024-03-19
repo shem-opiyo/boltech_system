@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% load static %}
+
+{%  block title %}Registration || Boltech Training Institute {% endblock %}
+
+
+{% block  content %}
+
+<!-- Register  Form resides here  -->
+<div class="countdown-area bg-1 ptb-110 bg-opacity bg-relative">
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-12">
+                <div class="register-from">
+                    <div class="register-top">
+                        <h3>Fill The Register Form</h3>
+                        <p>Kick start your Journey in the Technical field </p>
+                    </div>
+
+                    <form class="ordering"  method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="col-md-12">
+                            {% include "inc/error-message.html" %}
+                        </div>
+
+                        <input required="" name="name" placeholder="Name*" type="text">
+                        <input class="form-control2" name="email" required="" placeholder="Email*" type="email">
+                        <input class="form-control2" name="phone" required="" placeholder="Phone Number*" type="tel">
+
+                        <div class="orderby-wrapper">
+                            <select name="course_id" class="orderby">
+                                {% for course  in courses %}
+                                <option value="{{course.id}}">{{ course.name | title  }} </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <div class="mb-3 mt-30">
+                            <style>
+                                .form-control.whiteplaceholder::placeholder{
+                                    color: black;
+                                }
+
+                            </style>
+                            <label for="id_doc" style="color: rgb(235, 225, 225);">Upload ID Document</label>
+                            <input class="form-control whiteplaceholder" type="file" id="id_doc" name="id_doc">
+                          </div>
+                        
+                          <div class="mb-3">
+                            <label for="passport" style="color: rgb(255, 250, 250);">Upload Passport</label>
+                            <input class="form-control whiteplaceholder" type="file" id="passport" name="passport">
+                          </div>
+
+                        <div class="sent text-center">
+                            <button class="submit" type="submit">
+                                submit
+                            </button>
+                        </div>
+                    </form>
+                    <img src="{% static 'images/icons/c6.png' %}" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- End register form -->
+
+
+{% endblock %}

@@ -1,0 +1,83 @@
+
+<div id="profile-skills-form">
+
+    {% csrf_token %}
+
+    <div class="card-title">New Skill </div>
+
+    <form class="col mb-2 row" method="post">
+      {% csrf_token %}
+      <input  class="skill-action" type="hidden" name="action" value="add_skill">
+      <div class="col-md-5 col-form-label">
+        <input name="skill" type="text" class="form-control" id="skill"  required>
+      </div>
+      <div class="col-md-6 col-form-label">
+        <button type="submit" class="btn btn-success add-skill" >
+          Add Skill
+        </button>
+        
+      </div>
+    </form>
+
+    <hr class="divider" />
+
+    <div class="card-title">Update and Delete Skills</div>
+
+    <div class="col mb-3">
+      <!-- lets display the skills and add a button for edit or delete -->
+      {% for skill in portfolio_user.skills.all %}
+      <form  class="row" id="skill-form-{{forloop.counter}}" method="POST">
+        {% csrf_token %}  
+        <input  class="skill-action" type="hidden" name="action" value="">
+        <input skill-id="{{ skill.id }}" type="hidden" name="skill_id" value="{{ skill.id }}">
+        <div class="col-md-5 col-form-label">
+          <input name="skill" type="text" class="form-control" id="skill" value="{{ skill }}" required>
+        </div>
+        <div class="col-md-6 col-form-label">
+          <button type="button" class="btn btn-primary update-skill" data-form-target="#skill-form-{{ forloop.counter}}">
+            Update</button>
+          <button type="button" class="btn btn-danger delete-skill" data-form-target="#skill-form-{{ forloop.counter}}">
+            Delete</button>
+        </div>
+
+      </form>
+      {% endfor %}
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded" , (e)=>{
+        // add event listener to all update buttons
+        document.querySelectorAll(".update-skill").forEach((btn)=>{
+          btn.addEventListener("click", (e)=>{
+            // get the form target
+            let form_target = btn.dataset.formTarget;
+            // get the form
+            let form = document.querySelector(form_target);
+            // set the action to update
+            form.querySelector(".skill-action").value = "update_skill";
+            // submit the form
+            form.submit(); 
+            btn.innerHTML = 'Updating...<span class="spinner-border" ></span>';
+          })
+        })
+
+        // add event listener to all delete buttons
+        document.querySelectorAll(".delete-skill").forEach((btn)=>{
+          btn.addEventListener("click", (e)=>{
+            // get the form target
+            let form_target = btn.dataset.formTarget;
+            // get the form
+            let form = document.querySelector(form_target);
+            // set the action to delete
+            form.querySelector(".skill-action").value = "delete_skill";
+            // submit the form
+            form.submit();
+            btn.innerHTML = "Deleting...<span class='spinner-border'></span>";
+          })
+        })
+      
+      })
+
+    </script>
+
+  </div>

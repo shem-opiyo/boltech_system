@@ -1,0 +1,83 @@
+{% extends "adminportal/base.html" %}
+{% load static %}
+{% load custom_filters %}
+
+{% block title %} Add  Blog {% endblock %}
+
+
+{% block page_title %} Add Blog {% endblock %}
+{% block  breadcrumb %}
+    <a  href="{% url 'admin-blogs' %}" class="breadcrumb-item"> Blogs </a>
+    <li class="breadcrumb-item active"> Add Blog  </li>
+
+{% endblock %}
+
+{% block  content_area %}
+
+<section>
+    <div class="card rounded-0">
+        <div class="card-body">
+          <h5 class="card-title">Fill in  the  blog details</h5>
+
+          <!-- BLOGS UPLOAD  FORM -->
+          <form method="post" enctype="multipart/form-data" id="blog-upload-form">
+
+            {% csrf_token %} 
+
+              
+              <div class="col-sm-12"> 
+                <div class="form-group mb-2">
+                  <label for="blogTitle" class="mb-1">Title</label>
+                  <input name="title" type="text" class="form-control" id="blogTitle"placeholder="Blog Title"  required>
+                </div>
+
+          
+                <!-- image -->
+                <div class="form-group mb-2">
+                  <label for="blogImage" class="mb-1">Image</label>
+                  <input name="image" type="file" class="form-control" id="blogImage" 
+                    value="{{ form_data.image }}"
+                  placeholder="Blog Image"  required>
+                </div>
+
+
+
+           
+
+                <div class="form-group mb-3">
+                  <label class="mb-1" for="floatingTextarea" >Description</label>
+                  <textarea name="description" class="form-control tinymce-editor" placeholder="" id="floatingTextarea" style="height: 100px;">
+                    {{ form_data.description }}
+                  </textarea>
+                </div> 
+
+                      <!-- submit  button resides  here -->
+                    <div class="col-sm-12">
+                        <button type="submit" class="btn btn-primary">
+                          Submit 
+                          
+                        </button>
+                    </div>
+                    <script>
+                        let blogUploadForm = document.querySelector("#blog-upload-form")
+                        let submitBtn = blogUploadForm.querySelector("button[type='submit']")
+                        blogUploadForm.onsubmit =(e)=>{
+                          //e.prblogDefault()
+                          submitBtn.innerHTML=`
+                          <span class="spinner-border" ></span>
+                          `
+                        }
+                    </script>
+              </div>
+
+
+     
+          </form>
+          <!-- End  BLOGS UPLOAD  FORM -->
+
+        </div>
+      </div>
+
+    
+</section>
+{% endblock %}

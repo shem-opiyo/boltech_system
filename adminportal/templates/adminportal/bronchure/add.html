@@ -1,0 +1,72 @@
+{% extends "adminportal/base.html" %}
+{% load static %}
+{% load custom_filters %}
+
+{% block title %} Add Bronchure {% endblock %}
+
+
+{% block page_title %} Add Bronchure {% endblock %}
+{% block  breadcrumb %}
+    <a  href="{% url 'admin-bronchures' %}" class="breadcrumb-item"> Bronchures </a>
+    <li class="breadcrumb-item active"> Add Bronchure  </li>
+
+{% endblock %}
+
+{% block  content_area %}
+
+<section>
+    <div class="card rounded-0">
+        <div class="card-body">
+          <h5 class="card-title">Fill in  the  bronchure details</h5>
+
+          <!-- BRONCHURES UPLOAD  FORM -->
+          <form method="post" enctype="multipart/form-data" id="bronchure-upload-form">
+            <div class="col-md-12">
+              {%  include "inc/error-message.html" %}
+            </div>
+            {% csrf_token %} 
+
+              
+              <div class="col-sm-12"> 
+                   
+                    <div class="form-group mb-2">
+                      <label for="bronchureName" class="mb-1">Bronchure Name</label>
+                      <input name="name" type="text" class="form-control" id="bronchureName"placeholder="Bronchure Name"  required>
+                    </div>
+                  
+          
+                    <div class="form-group mb-2">
+                        <label for="bronchurePdf" class="col-form-label"> Bronchure Pdf File </label>
+                        <input  id="bronchurePdf" name="file" type="file" class="form-control" accept="application/pdf" required>
+                    </div>
+
+
+                      <!-- submit  button resides  here -->
+                    <div class="col-sm-12">
+                        <button type="submit" class="btn btn-primary">
+                          Submit 
+                          
+                        </button>
+                    </div>
+                    <script>
+                        let bronchureUploadForm = document.querySelector("#bronchure-upload-form")
+                        let submitBtn = bronchureUploadForm.querySelector("button[type='submit']")
+                        bronchureUploadForm.onsubmit =(e)=>{
+                          //e.preventDefault()
+                          submitBtn.innerHTML=`
+                          <span class="spinner-border" ></span>
+                          `
+                        }
+                    </script>
+              </div>
+
+
+     
+          </form><!-- End  BRONCHURES UPLOAD  FORM -->
+
+        </div>
+      </div>
+
+    
+</section>
+{% endblock %}

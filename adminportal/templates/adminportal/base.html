@@ -1,0 +1,49 @@
+{% extends "admin-base.html" %}
+{% load static %}
+
+{% block content %}
+  {% include "admin-inc/header.html" %}
+  {% include "admin-inc/sidebar.html" %}
+
+  <main id="main" class="main">
+
+    <div class="pagetitle">
+      <h1>{% block page_title %} {% endblock %}</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="/admin/">Home</a></li>
+          {% block breadcrumb %}
+
+          {% endblock %}
+ 
+        </ol>
+      </nav>
+    </div><!-- End Page Title --> 
+
+    <!-- error message display  lies here  --> 
+    <div>
+      {% include 'admin-inc/error-message.html' %}
+    </div>
+
+    <!-- script for all the pages that extend adminportal base -->
+    {% if  script %}
+    <script>
+      document.addEventListener("DOMContentLoaded", function(event) {
+         {{ script | safe }}
+      });
+    </script>
+    {% endif %}
+
+    <!-- content  lies here  --> 
+    {% block content_area %}
+
+    {% endblock %}
+
+    
+  </main>
+
+  {% include "admin-inc/footer.html" %}
+
+      
+{% endblock %}
+

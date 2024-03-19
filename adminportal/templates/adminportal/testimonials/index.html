@@ -1,0 +1,84 @@
+{% extends "adminportal/base.html" %}
+{% load static %}
+{% load custom_filters %}
+
+{% block title %} Testimonials  {% endblock %}
+
+
+{% block page_title %} Testimonials {% endblock %}
+{% block  breadcrumb %}
+    <li class="breadcrumb-item active"> Testimonials </li>
+{% endblock %}
+
+{% block  content_area %}
+<section class="section dashboard">
+  <div class="row">
+
+    <div class="action-buttons d-flex justify-content-end mb-2">
+      <div class="d-flex justify-content-between">
+        <a  href="{% url 'admin-add-testimonial' %}" class="btn btn-success"> Add Testimonial  </a>
+      </div>
+    </div>
+
+    <div class="col-12">
+        <div class="card recent-sales overflow-auto">
+
+          <div class="filter">
+            <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+              <li class="dropdown-header text-start">
+                <h6>Filter</h6>
+              </li>
+
+              <li><a class="dropdown-item" href="#">Today</a></li>
+              <li><a class="dropdown-item" href="#">This Month</a></li>
+              <li><a class="dropdown-item" href="#">This Year</a></li>
+            </ul>
+          </div>
+
+          <div class="card-body">
+            <h5 class="card-title">Testimonials <span>| This Year </span></h5>
+
+            <table class="table table-borderless datatable">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Testifier</th>
+                  <th scope="col">Role</th>
+                  <th scope="col">Description</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                {% for testimonial in testimonials %}
+                    <tr>
+                        <th scope="row"><a href="{% url 'admin-view-testimonial' testimonial.slug  %}" >#{{  forloop.counter }}</a></th>
+                        <td>
+                          <a href="{% url 'admin-view-testimonial' testimonial.slug  %}" class="text-primary">
+                            {{ testimonial.testifier }}
+                          </a>
+                        </td>
+                        <td>{{ testimonial.testifier_role  }}</td>
+                        <td>
+                          {{ testimonial.description  | safe }}
+                        </td>
+                    </tr>
+                {% endfor %}
+              </tbody>
+              
+            </table>
+
+ 
+
+          </div>
+
+        </div>
+      </div>
+  
+        
+
+  </div>
+</section> 
+
+{% endblock %}
+ 

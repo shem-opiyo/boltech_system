@@ -1,0 +1,118 @@
+{% extends "adminportal/base.html" %}
+{% load static %}
+{% load custom_filters %}
+
+{% block title %} Registration | {{ registration.name }} {% endblock %}
+
+
+{% block page_title %} View Registration {% endblock %}
+{% block  breadcrumb %}
+    <a  href="{% url 'admin-registrations' %}" class="breadcrumb-item"> Registrations </a>
+    <li class="breadcrumb-item active"> {{ registration.name }}  </li>
+
+{% endblock %}
+
+{% block  content_area %}
+
+<section>
+
+  <div class="row">
+
+    <div class="action-buttons d-flex justify-content-end mb-2">
+      <!-- <div class="d-flex justify-content-between">
+        <button class="btn btn-success mx-2" data-bs-target="#editRegistrationModal" data-bs-toggle="modal" >Edit</button>
+        <button  class="btn btn-danger" onclick="deleteRegistration(event)">Delete</button>
+
+          <form method="post" id="delete-registration-form">
+            {% csrf_token %}
+              <input type="text" name="action" value="delete" hidden>
+          </form>
+          <script>
+            function deleteRegistration(event){
+              let deleteRegistrationForm = document.querySelector('#delete-registration-form');
+
+              if (confirm('Are you sure you want to delete this registration?')) {
+                deleteRegistrationForm.submit();
+              }
+
+            }
+          </script>
+      </div> -->
+    </div>
+    
+    <div class="card mb-3 col-12">
+      <div class="row g-0">
+   
+        <div class="col-md-6">
+            <div class="card-body">
+              <div class="card-title"> <b>Name</b>  : <a href="#">{{ registration.name }}</a> </div>
+              <div class="card-title"> <b>Email</b> : <a href="mailto:{{registration.email}}" class="card-text">{{registration.email}}</a></div>
+              <div class="card-title"> <b>Phone</b> : <a href="tel:{{registration.phone}}" class="card-text">{{registration.phone}}</a></div>
+              <div class="card-title"> <b>Course Name</b> : <a href="{%  url 'admin-view-course' registration.course.slug %}">{{registration.course.name}}</a></div>
+              <!-- registered  on -->
+              <div class="card-title"> <b>Registered On</b> : <a href="#" class="card-text">{{registration.created_at|date:"d-M-Y"}}</a></div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="nav nav-tabs nav-tabs-bordered">
+            <div class="nav-item">
+              <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#registration-id"> ID Document</button>
+            </div>
+            <div class="nav-item">
+              <button class="nav-link" data-bs-toggle="tab" data-bs-target="#registration-passport">Passport</button>
+            </div>
+          </div>
+
+          <div class="tab-content">
+            <!-- tab pane for displaying id document -->
+            <div class="tab-pane fade show active" id="registration-id">
+              {% if registration.id_doc %}
+                <div class="col-md-12">
+                  <img src="{{ registration.id_doc.url}}" alt="" class="img-fluid">
+                </div>
+                <div class="col-md-12">
+                    <a href="{{ registration.id_doc.url}}" download class="btn btn-primary">Download</a>
+                </div>
+              {% else %}
+              <div class="col-md-12">
+                 <!-- display the  no id message -->
+                 <div class="alert alert-warning">
+                  <p class="text-center">No ID Document uploaded</p>
+                </div>
+              </div>
+              {% endif %}
+            </div>
+            <!-- tab pane for displaying passport -->
+            <div class="tab-pane" id="registration-passport">
+              {%  if registration.passport %}
+                <div class="col-md-12">
+                    <img src="{{ registration.passport.url}}" alt="" class="img-fluid">
+                </div>
+                <div class="col-md-12">
+                  <a href="{{ registration.passport.url}}" download class="btn btn-primary">Download</a>
+                </div>
+              {% else %}
+              <div class="col-md-12">
+                   <!-- display the  no passport message -->
+                   <div class="alert alert-warning">
+                    <p class="text-center">No Passport uploaded</p>
+                  </div>
+              </div>
+              {% endif %}
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </div><!-- End Card with an image on left -->
+    
+  
+
+  </div>
+
+</section>
+{% endblock %}

@@ -1,0 +1,117 @@
+{% extends "adminportal/base.html" %}
+{% load static %}
+{% load custom_filters %}
+
+{% block title %} Bronchure | {{ bronchure.name }} {% endblock %}
+
+
+{% block page_title %} View Bronchure {% endblock %}
+{% block  breadcrumb %}
+    <a  href="{% url 'admin-bronchures' %}" class="breadcrumb-item"> Bronchures </a>
+    <li class="breadcrumb-item active"> {{ bronchure.name }}  </li>
+
+{% endblock %}
+
+{% block  content_area %}
+
+<section>
+
+  <div class="row">
+
+    <div class="action-buttons d-flex justify-content-end mb-2">
+      <div class="d-flex justify-content-between">
+        <button class="btn btn-success mx-2" data-bs-target="#editBronchureModal" data-bs-toggle="modal" >Edit</button>
+        <button  class="btn btn-danger" onclick="deleteBronchure(event)">Delete</button>
+
+          <form method="post" id="delete-bronchure-form">
+            {% csrf_token %}
+              <input type="text" name="action" value="delete" hidden>
+          </form>
+          <script>
+            function deleteBronchure(event){
+              let deleteBronchureForm = document.querySelector('#delete-bronchure-form');
+
+              if (confirm('Are you sure you want to delete this bronchure?')) {
+                deleteBronchureForm.submit();
+              }
+
+            }
+          </script>
+      </div>
+    </div>
+    
+    <div class="card mb-3 col-12">
+      <div class="row g-0">
+        <div class="col-md-6">
+            <div class="card-body">
+            <h1 class="card-title" style="font-size:2rem;">Name : {{ bronchure.name }}</h1>
+            <!-- link to the  pdf to open in new tab  -->
+            <h1 class="card-title">
+              Bronchure File :  <a href="{{ bronchure.file.url}}" target="_blank">Click this link to preview  in new tab</a></h1>
+            </div>
+        </div>
+      </div>
+    </div><!-- End Card with an image on left -->
+    
+    <!-- static modal for editing bronchure -->
+
+
+    <div class="modal fade" id="editBronchureModal" data-bs-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title fw-bold" id="staticBackdropLabel">Edit Bronchure</h5>
+              <button type="button" class="btn close fw-bold" data-bs-dismiss="modal" aria-label="Close">
+                   <span class="fs-2" aria-hidden="true">&times;</span>
+              </button>
+          </div>
+  
+          <div class="modal-body">
+  
+              <div class="row">
+                <form method="post" enctype="multipart/form-data" id="bronchureEditform">
+
+                  {% csrf_token %} 
+      
+                  <input type="text" name="action" value="edit" hidden>
+
+                    <div class="col-sm-12"> 
+                         
+                      <div class="form-group mb-2">
+                        <label for="bronchureName" class="mb-1">Bronchure Name</label>
+                        <input name="name" type="text" class="form-control" id="bronchureName" value="{{ bronchure.name }}" placeholder="Bronchure Name"  required>
+                      </div>
+                    
+            
+                      <div class="form-group mb-2">
+                          <label for="bronchurePdf" class="col-form-label"> Bronchure Pdf File </label>
+                          <input  id="bronchurePdf" name="file" type="file" class="form-control" accept="application/pdf" required>
+                      </div>
+
+                    </div>
+      
+      
+           
+                </form>
+              </div>
+              
+          </div>
+          
+          <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary save-cart-item-changes"
+                onclick="document.querySelector('#bronchureEditform').submit();"
+              >
+                  Save changes
+                  <span><i class="fas fa-arrow-circle-right"></i></span>
+  
+              </button>
+          </div>
+          </div>
+      </div>
+      </div>
+
+  </div>
+
+</section>
+{% endblock %}

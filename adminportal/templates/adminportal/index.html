@@ -1,0 +1,26 @@
+{% extends "adminportal/base.html" %}
+{% load static %}
+{% load custom_filters %}
+
+{% block title %}DashBoard{% endblock %}
+
+
+{%  block page_title %} Dashboard {% endblock %}
+{% block  breadcrumb %}
+    <li class="breadcrumb-item active">Dashboard</li>
+{% endblock %}
+
+{% block  content_area %}
+    <section class="section dashboard">
+      <div class="row">
+
+        <div class="col-lg-12">
+          {% include 'admin-inc/dash-cards.html'%}
+  
+        </div>
+
+
+      </div>
+    </section>
+
+{% endblock %}

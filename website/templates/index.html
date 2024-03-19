@@ -1,0 +1,492 @@
+{% extends "base.html" %}
+{% load static %}
+
+{%  block title %}Home || Boltech Training Institute {% endblock %}
+
+
+
+{% block  content %}
+        <!-- Start of slider area -->
+        <div class="slider-area">
+            <div class="text-animation-1">
+                <div class="slider-all">
+                    <img src="https://boltechinstitute.com/wp-content/uploads/2022/03/KEN_8862-1-scaled.jpg" alt="">
+                    <div class="slider-text-wrapper">
+                        <div class="table">
+                            <div class="table-cell">
+                                <div class="slider-text">
+                                    <h3 class="tlt3">The Best Technical Learning Institute</h3>
+                                    <h2 class="tlt4">WELCOME TO BOLTECH TRAINING INSTITUTE</h2>
+                                    <p>At Boltech Training Institute, we believe in hands-on learning,</p>
+                                    <p> which is why we provide our students with access to the latest mobile phone repair and maintenance tools and equipment. </p>
+                                    
+                                    <a class="button extra-small mb-20" href="{% url 'register' %}" target="_blank" >
+                                        <span>Apply Now</span>
+                                    </a>
+
+                                </div>
+
+                               
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+         <!-- apply now  popup modal -->
+         <div  class="modal" id="applicationFormModal" data-bs-backdrop="static" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title fw-bold" id="staticBackdropLabel"> Apply Now  </h5>
+                    <button type="button" class="btn close fw-bold" data-bs-dismiss="modal" aria-label="Close">
+                        <span class="fs-2" aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    <div class="fw-bold" id="action-description"></div>
+                    <form action="" id="applicationForm" method="post" >
+                        <input name="action" type="hidden" id="action" value="apply">
+                        <div class="form-group mb-2">
+                            <label class="mb-2" for="servicePassword"> Enter your
+                              <b class="fw-bold fst-italic" > Full Name </b> </label>
+                            <input id="fullName" name="full_name" type="text" class="form-control" placeholder="Enter your full name" required>
+                        </div>
+                    </form>
+                </div>
+                
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary save-service-changes" onclick="submitApplication(event)">
+                        Save changes
+                    </button>
+
+                    <script>
+                        let applicationForm = document.querySelector("#applicationForm")
+                        function submitApplication(event){
+                            applicationForm.submit()
+                        }
+                    </script>
+                </div>
+                </div>
+            </div>  
+        </div>
+        <!-- end application popup modal -->
+
+        <!-- End of slider area --> 
+        
+        <!-- start courses area --> 
+        <div class="top-courses-area gray-bg pb-160 pt-110">
+            <div class="container">
+                <div class="section-title text-center mb-55">
+                    <h1 class="uppercase">TOP COURSES</h1>
+                    <p>At Boltech Training Insititute,<br>We believe in hands-on learning, which is why we provide our students with access to the latest mobile phone repair and maintenance tools and equipment.</p><br>
+                    <h3>
+                        Looking for a new career path or a way to expand your skillset? 
+                    </h3>
+                    <h3> 
+                        Look no further than our comprehensive Mobile Phone Repair and Maintenance course at Boltech Training Institute in Nairobi, Kenya!
+                    </h3>
+
+                    <div class="separator my mtb-15">
+                        <i class="icofont icofont-hat-alt"></i>
+                    </div>
+                </div>
+                <div class="all-courses">
+                    {%  for course in courses %}
+                    <div class="single-course">
+                        <a href="{% url 'course-details' course.slug %}"><img src="{{ course.image.url }}" alt="" ></a>
+                        <div class="single-coures-text">
+                            <h3><a href="{% url 'course-details' course.slug %}">{{ course.name }}</a></h3>
+                            <p>{{ course.description|truncatechars:126 | safe }}</p>
+                            <a href="{% url 'course-details' course.slug %}">READ MORE</a>
+                        </div>
+                    </div>
+                    {% endfor %}
+                 
+
+                    
+                </div>
+            </div>
+        </div>
+        <!-- End courses area -->  
+
+        <!-- start upcoming events  area --> 
+        <div class="upcoming-event-area pt-110 pb-70">
+            <div class="container">
+                <div class="section-title text-center mb-55">
+                    <h1 class="uppercase">UPCOMING EVENTS</h1>
+                    <p>Don't be left Out. Attend Our Upcoming events</p>
+                    <div class="separator my mtb-15">
+                        <i class="icofont icofont-hat-alt"></i>
+                    </div>
+                </div>
+                <div class="all-upcoming-event">
+                    <div class="row">
+                        {% for event in events %}
+                        <div class="col-lg-6 col-md-12">
+                            <div class="single-upcoming mb-40">
+                                <div class="upcoming-date text-center">
+                                    <div class="date-all">
+                                        <span>{{ event.date |date:'d'}}</span>
+                                        <span class="month">{{ event.date |date:'M'}}</span>
+                                    </div>
+                                </div>
+                                <div class="single-upcoming-text">
+                                    <div class="blog-meta">
+                                        <span class="published3">
+                                            <i class="fa fa-clock-o" aria-hidden="true"></i>
+                                            {{event.start_time|time:"h:i A"}} to {{event.end_time|time:"h:i A"}}
+                                        </span>
+                                        <span class="published4">
+                                            <i class="fa fa-map-marker" aria-hidden="true"></i>
+                                            {{ event.location }}
+                                        </span>
+                                    </div>
+                                    <h3><a href="{% url 'event-details' event.id %}">{{event.title | upper}}</a></h3>
+                                    <p>{{ event.description | safe }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                  
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- End upcoming events  area -->
+        <div class="countdown-area bg-1 ptb-110 bg-opacity bg-relative main-bg-1">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-7 col-md-7 col-12 text-center">
+                        <div class="countdown-all">
+                            <h3>Register for any course at a Discounted Price.</h3>
+                            <h1>Register Now</h1>
+                            <div class="timer">
+                                <div data-countdown="2024/01/01"></div>
+                            </div>	
+                        </div>
+                    </div>
+                    <div class="col-lg-5 col-md-5 col-12">
+                        <div class="register-from">
+                            <div class="register-top">
+                                <h3>Inquire about our courses</h3>
+                                <p>Kick start your Journey in the Technical field </p>
+                            </div>
+                            <form class="ordering" method="post">
+                                <div class="col-md-12">
+                                    {% include "inc/error-message.html" %}
+                                </div>
+                                {% csrf_token %} 
+                                <input name="action" value="inquiry" hidden>
+                                <input required="" name="name" placeholder="Name*" type="text">
+                                <input class="form-control2" required="" name="email" placeholder="Email*" type="email">
+                                <div class="orderby-wrapper">
+                                    <select name="subject" class="orderby">
+                                        {% for course in courses %}
+                                        <option value="{{ course.name }}">{{ course.name }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <textarea name="message"  placeholder="Message" cols="30" rows="10" class="form-control2 mt-30"></textarea>
+                                <div class="sent text-center">
+                                    <button class="submit" type="submit">
+                                        submit
+                                    </button>
+                                </div>
+                            </form>
+                            <img src="{% static 'images/icons/c6.png' %}" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- start gallery area --> 
+        <div class="upcoming-event-area pt-110 pb-80">
+            <div class="container">
+                <div class="section-title text-center mb-55">
+                    <h1 class="uppercase">OUR GALLERY</h1>
+                    <div class="separator my mtb-15">
+                        <i class="icofont icofont-hat-alt"></i>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 col-md-6">
+                        <div class="gallery-img mb-30">
+                            <img src="{% static 'images/gallery/1.jpg' %}" alt="">
+                            <div class="gallery-view">
+                                <a class="img-poppu" href="{% static 'images/gallery/1.jpg' %}">
+                                    <i class="fa fa-search-plus"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <div class="gallery-img mb-30">
+                            <img src="{% static 'images/gallery/2.jpg' %}" alt="">
+                            <div class="gallery-view">
+                                <a class="img-poppu" href="{% static 'images/gallery/2.jpg' %}">
+                                    <i class="fa fa-search-plus"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <div class="gallery-img mb-30">
+                            <img src="{% static 'images/gallery/3.jpg' %}" alt="">
+                            <div class="gallery-view">
+                                <a class="img-poppu" href="{% static 'images/gallery/3.jpg' %}">
+                                    <i class="fa fa-search-plus"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <div class="gallery-img mb-30">
+                            <img src="{% static 'images/gallery/4.jpg' %}" alt="">
+                            <div class="gallery-view">
+                                <a class="img-poppu" href="{% static 'images/gallery/4.jpg' %}">
+                                    <i class="fa fa-search-plus"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <div class="gallery-img mb-30">
+                            <img src="{% static 'images/gallery/5.jpg' %}" alt="">
+                            <div class="gallery-view">
+                                <a class="img-poppu" href="{% static 'images/gallery/5.jpg' %}">
+                                    <i class="fa fa-search-plus"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <div class="gallery-img mb-30">
+                            <img src="{% static 'images/gallery/6.jpg' %}" alt="">
+                            <div class="gallery-view">
+                                <a class="img-poppu" href="{% static 'images/gallery/6.jpg' %}">
+                                    <i class="fa fa-search-plus"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="counter-area bg-2 bg-opacity bg-relative ptb-110">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-12 text-center">
+                        <div class="counter-bottom2">
+                            <div class="counter-img">
+                                <img src="{% static 'images/icons/1.png' %}" alt="" >
+                            </div>
+                            <div class="counter-all">
+                                <div class="counter-next2">
+                                    <h2>Teachers</h2>
+                                </div>
+                                <div class="counter cnt-two">
+                                    <h1>14</h1>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-12 text-center">
+                        <div class="counter-bottom2 mrg-xs mrg-sm-none">
+                            <div class="counter-img">
+                                <img src="{% static 'images/icons/2.png' %}" alt="" >
+                            </div>
+                            <div class="counter-all">
+                                <div class="counter-next2">
+                                    <h2>Students</h2>
+                                </div>
+                                <div class="counter cnt-two">
+                                    <h1>3554</h1>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-12 text-center">
+                        <div class="counter-bottom2 mrg-xs">
+                            <div class="counter-img">
+                                <img src="{% static 'images/icons/3.png' %}" alt="" >
+                            </div>
+                            <div class="counter-all">
+                                <div class="counter-next2">
+                                    <h2>Research</h2>
+                                </div>
+                                <div class="counter cnt-two">
+                                    <h1>154</h1>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-12 text-center">
+                        <div class="counter-bottom2 mrg-xs">
+                            <div class="counter-img">
+                                <img src="{% static 'images/icons/4.png' %}" alt="" >
+                            </div>
+                            <div class="counter-all">
+                                <div class="counter-next2">
+                                    <h2>Awards</h2>
+                                </div>
+                                <div class="counter cnt-two">
+                                    <h1>8</h1>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End gallery  area --> 
+        <!-- End page content -->
+        <!--Testimonials area-->
+        <div class="testimonial-area bg-10 bg-opacity bg-relative ptb-110">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="testimonial-all slider-active2">
+                            {% for testimonial in testimonials %}
+                            <div class="single-testimonial">
+                                <div class="test-img-name">
+                                    <div class="test-img">
+                                        <img src="{{testimonial.image.url }}" width="100" alt="">
+                                    </div>
+                                    <div class="test-name">
+                                        <h3>{{ testimonial.testifier}}</h3>
+                                        <p>{{ testimonial.testifier_role }}</p>
+                                    </div>
+                                </div>
+                                <p>{{ testimonial.description | safe }} </p>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="event-area ptb-110">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="section-title text-center mb-55">
+                            <h1 class="uppercase">Our Blog </h1>
+                            <div class="separator my mtb-15">
+                                <i class="icofont icofont-hat-alt"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 col-md-6">
+                        <div class="news-are">
+                            <div class="news-img">
+                                <img src="{% static 'images/blog/34.jpg' %}" alt="" >
+                                <div class="news-date">
+                                    <div class="blog-meta-2">
+                                        <span class="published3">
+                                            <i class="icofont icofont-ui-calendar"></i>
+                                            14 Sep 2017
+                                        </span>
+                                    </div>
+                                    <div class="blog-meta for-news">
+                                        <span class="published3">
+                                            <a href="shortcode-blog.html">
+                                                <i class="icofont icofont-eye"></i> 34
+                                            </a>
+                                        </span>
+                                        <span class="published4">
+                                            <a href="#">
+                                                <i class="icofont icofont-comment"></i> 20
+                                            </a>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="img-text gray-bg">
+                                <h3><a href="shortcode-blog.html">Mobile Phone repair and Maintenance</a></h3>
+                                <p> At Boltech Training Institute, We train learners on how to repair mobile phones and also maintenance.This Equips Learners with</p>
+                                <a class="button extra-small" href="#">
+                                    <span>Read More</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <div class="news-are mrg-xs">
+                            <div class="news-img">
+                                <img src="{% static 'images/blog/35.jpg' %}" alt="" >
+                                <div class="news-date">
+                                    <div class="blog-meta-2">
+                                        <span class="published3">
+                                            <i class="icofont icofont-ui-calendar"></i>
+                                            14 Sep 2017
+                                        </span>
+                                    </div>
+                                    <div class="blog-meta for-news">
+                                        <span class="published3">
+                                            <a href="shortcode-blog.html">
+                                                <i class="icofont icofont-eye"></i> 34
+                                            </a>
+                                        </span>
+                                        <span class="published4">
+                                            <a href="shortcode-blog.html">
+                                                <i class="icofont icofont-comment"></i> 20
+                                            </a>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="img-text gray-bg">
+                                <h3><a href="shortcode-blog.html">Computer repair and Maintenance</a></h3>
+                                <p>We offer Computer maintenance and repair to our students Using The latest</p>
+                                <a class="button extra-small" href="#">
+                                    <span>Read More</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <div class="news-are mrg-xs mrg-md">
+                            <div class="news-img">
+                                <img src="{% static 'images/blog/33.jpg' %}" alt="" >
+                                <div class="news-date">
+                                    <div class="blog-meta-2">
+                                        <span class="published3">
+                                            <i class="icofont icofont-ui-calendar"></i>
+                                            14 Sep 2017
+                                        </span>
+                                    </div>
+                                    <div class="blog-meta for-news">
+                                        <span class="published3">
+                                            <a href="shortcode-blog.html">
+                                                <i class="icofont icofont-eye"></i> 34
+                                            </a>
+                                        </span>
+                                        <span class="published4">
+                                            <a href="shortcode-blog.html">
+                                                <i class="icofont icofont-comment"></i> 20
+                                            </a>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="img-text gray-bg">
+                                <h3><a href="shortcode-blog.html">Web Design and Development</a></h3>
+                                <p>We offer web design and Development Both front end and</p>
+                                <a class="button extra-small" href="#">
+                                    <span>Read More</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+{% endblock %}   

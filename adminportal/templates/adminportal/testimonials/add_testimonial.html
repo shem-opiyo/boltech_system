@@ -1,0 +1,78 @@
+{% extends "adminportal/base.html" %}
+{% load static %}
+{% load custom_filters %}
+
+{% block title %} Testimonial {% endblock %}
+
+
+{% block page_title %} Add Testimonial {% endblock %}
+{% block  breadcrumb %}
+    <a  href="{% url 'admin-testimonials' %}" class="breadcrumb-item"> Testimonials </a>
+    <li class="breadcrumb-item active"> Add Testimonial  </li>
+
+{% endblock %}
+
+{% block  content_area %}
+
+<section>
+    <div class="card rounded-0">
+        <div class="card-body">
+          <h5 class="card-title">Fill in  the  testimonial details</h5>
+
+          <!-- PROJECTS UPLOAD  FORM -->
+          <form method="post" enctype="multipart/form-data" id="project-upload-form">
+
+            {% csrf_token %} 
+
+              
+              <div class="col-sm-12"> 
+                    <div class="row mb-2 form-floating">
+                        <input name="testifier" type="text" class="form-control" id="floatingTestifier" required>
+                        <label class="floatingInput">Testifier Name </label>
+                    </div>
+
+                    <div class="row mb-2 form-floating">
+                        <input name="testifier_role" type="text" class="form-control" id="floatingTestifierRole" required>
+                        <label class="floatingInput">Testifier Role in Their Company </label>
+                    </div>
+
+                    <div class="row mb-2 form-group">
+                      <label class="floatingInput">Image </label>
+                      <input name="image" type="file" class="form-control" id="floatingImage" required accept="image/*">
+                    </div>
+
+
+                    <label for="floatingTextarea" class="col-form-label"> Description</label>
+                    <div class="form-floating mb-3">
+                        <textarea name="description" class="form-control tinymce-editor" placeholder="" id="floatingTextarea" style="height: 100px;"></textarea>
+                        <!-- <label for="floatingTextarea">Description</label> -->
+                    </div> 
+
+                      <!-- submit  button resides  here -->
+                    <div class="col-sm-12">
+                        <button type="submit" class="btn btn-primary">
+                          Submit 
+                        </button>
+                    </div>
+                    <script>
+                        let projectUploadForm = document.querySelector("#project-upload-form")
+                        let submitBtn = projectUploadForm.querySelector("button[type='submit']")
+                        projectUploadForm.onsubmit =(e)=>{
+                          //e.preventDefault()
+                          submitBtn.innerHTML=`
+                          <span class="spinner-border" ></span>
+                          `
+                        }
+                    </script>
+              </div>
+
+
+     
+          </form><!-- End  PROJECTS UPLOAD  FORM -->
+
+        </div>
+      </div>
+
+    
+</section>
+{% endblock %}

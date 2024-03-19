@@ -1,0 +1,86 @@
+{% extends "adminportal/base.html" %}
+{% load static %}
+{% load custom_filters %}
+
+{% block title %} Add Course {% endblock %}
+
+
+{% block page_title %} Add Course {% endblock %}
+{% block  breadcrumb %}
+    <a  href="{% url 'admin-courses' %}" class="breadcrumb-item"> Courses </a>
+    <li class="breadcrumb-item active"> Add Course  </li>
+
+{% endblock %}
+
+{% block  content_area %}
+
+<section>
+    <div class="card rounded-0">
+        <div class="card-body">
+          <h5 class="card-title">Fill in  the  course details</h5>
+
+          <!-- COURSES UPLOAD  FORM -->
+          <form method="post" enctype="multipart/form-data" id="course-upload-form">
+
+            {% csrf_token %} 
+
+              
+              <div class="col-sm-12"> 
+                   
+                    <div class="form-group mb-2">
+                      <label for="courseName" class="mb-1">Name</label>
+                      <input name="name" type="text" class="form-control" id="courseName"placeholder="Course Name"  required>
+                    </div>
+                  
+              
+
+                    <div class="form-group mb-2">
+                      <label for="startOn" class="mb-1">Starts On </label>
+                      <input name="start_on" type="date" class="form-control" id="startOn" required>
+                    </div>
+
+                    <div class="form-group mb-2">
+                      <label for="duration" class="mb-1">Duration in Months</label>
+                      <input name="duration" type="number" class="form-control" id="duration" placeholder="Duration in months" required>
+                    </div>
+                    
+                
+                    <div class="form-group mb-2">
+                        <label for="courseImage" class="col-form-label"> Image</label>
+                        <input  id="courseImage" name="image" type="file" class="form-control" accept="image/*" required>
+                    </div>
+
+                    <div class="form-group mb-3">
+                      <label class="mb-1" for="floatingTextarea" >Description</label>
+                      <textarea name="description" class="form-control tinymce-editor" placeholder="" id="floatingTextarea" style="height: 100px;"></textarea>
+                    </div> 
+
+                      <!-- submit  button resides  here -->
+                    <div class="col-sm-12">
+                        <button type="submit" class="btn btn-primary">
+                          Submit 
+                          
+                        </button>
+                    </div>
+                    <script>
+                        let courseUploadForm = document.querySelector("#course-upload-form")
+                        let submitBtn = courseUploadForm.querySelector("button[type='submit']")
+                        courseUploadForm.onsubmit =(e)=>{
+                          //e.preventDefault()
+                          submitBtn.innerHTML=`
+                          <span class="spinner-border" ></span>
+                          `
+                        }
+                    </script>
+              </div>
+
+
+     
+          </form><!-- End  COURSES UPLOAD  FORM -->
+
+        </div>
+      </div>
+
+    
+</section>
+{% endblock %}

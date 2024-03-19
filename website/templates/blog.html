@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% load static %}
+
+{%  block title %}Blog || Boltech Training Institute {% endblock %}
+
+
+{% block  content %}
+        <section class="breadcrumbs-area bg-3 ptb-110 bg-opacity bg-relative">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 text-center">
+                        <div class="breadcrumbs">
+                            <h2 class="page-title">shortcode</h2>
+                            <ul>
+                                <li>
+                                    <a class="active" href="#">Home</a>
+                                </li>
+                                <li>blog</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div class="event-area ptb-110">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="section-title text-center mb-55">
+                            <h1 class="uppercase">Our Blog </h1>
+                            <div class="separator my mtb-15">
+                                <i class="icofont icofont-hat-alt"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    {% for blog in blogs %}
+                    <div class="col-lg-4 col-md-6">
+                        <div class="news-are">
+                            <div class="news-img">
+                                <img src="{{ blog.image.url }}" alt="" >
+                                <div class="news-date">
+                                    <div class="blog-meta-2">
+                                        <span class="published3">
+                                            <i class="icofont icofont-ui-calendar"></i>
+                                            {{blog.created_at | date:"d-M-Y"}}
+                                        </span>
+                                    </div>
+                                    <div class="blog-meta for-news">
+                                        <span class="published3">
+                                            <a href="#">
+                                                <i class="icofont icofont-eye"></i> 34
+                                            </a>
+                                        </span>
+                                        <span class="published4">
+                                            <a href="#">
+                                                <i class="icofont icofont-comment"></i> 20
+                                            </a>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="img-text gray-bg">
+                                <h3><a href="{{ blog.get_absolute_url }}">{{blog.title | title}}</a></h3>
+                                <p> {{blog.description | safe | truncatechars:100 }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <!-- End page content -->
+
+{% endblock %}

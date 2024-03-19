@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% load static %}
+
+{%  block title %}Courses || Boltech Training Institute {% endblock %}
+
+
+{% block  content %}
+        <section class="breadcrumbs-area bg-3 ptb-110 bg-opacity bg-relative">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 text-center">
+                        <div class="breadcrumbs">
+                            <h2 class="page-title">OUR COURSES</h2>
+                            <ul>
+                                <li>
+                                    <a class="active" href="{%  url 'courses' %}">Home</a>
+                                </li>
+                                <li>
+                                    <a>Pages</a>
+                                </li>
+                                <li>Our Top Courses</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Start page content -->
+        <section class="top-courses pt-110 pb-80">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="courses-area bg-2 bg-opacity bg-relative ptb-40 mb-60">
+                            <div class="courses pr-100 pl-100">
+                                <div>
+                                    <h2 class="page-title alaign-center">BOLTECH TRAINING INSTITUTE</h2>
+                                    <h2 class="page-title alaign-center">LEADING COLLEGE IN MOBILE PHONE REPAIR</h2>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+              
+                <div class="row section-title text-center mb-55">
+                    <h1 class="uppercase">TOP COURSES</h1>
+                    <p>At Boltech Training Insititute,<br>These are Our top Courses</p>
+                    <div class="separator my mtb-15">
+                        <i class="icofont icofont-hat-alt"></i>
+                    </div>
+                </div>
+
+                <div class="row">
+                    {% for course in courses %}
+                    <div class="col-lg-4 col-md-6">
+                        <div class="single-course mb-30">
+                            <a href="{% url 'course-details' course.slug %}"><img src="{{ course.image.url }}" alt="" ></a>
+                            <div class="single-coures-text">
+                                <h3><a href="{% url 'course-details' course.slug %}">{{ course.name }}</a></h3>
+                                <p>{{ course.description|truncatechars:126 | safe }}</p>
+                                <a href="{% url 'course-details' course.slug %}">READ MORE</a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>  
+
+            </div>
+        </section>
+        <!-- End page content -->
+ 
+{% endblock %}

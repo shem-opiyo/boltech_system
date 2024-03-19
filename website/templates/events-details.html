@@ -1,0 +1,139 @@
+{% extends "base.html" %}
+{% load static %}
+
+{%  block title %}Event Details || Boltech Training Institute {% endblock %}
+
+
+{% block  content %}
+        <section class="breadcrumbs-area bg-3 ptb-110 bg-opacity bg-relative">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 text-center">
+                        <div class="breadcrumbs">
+                            <h2 class="page-title">Events Details</h2>
+                            <ul>
+                                <li>
+                                    <a class="active" href="{% url 'events' %}">Home</a>
+                                </li>
+                                <li>
+                                    <a>Pages</a>
+                                </li>
+                                <li>Event Details</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Start page content -->
+        <section class="events-details-area ptb-90">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12">
+                        <div class="events-details-right-sidebar">
+                            <div class="events-details-img1">
+                                <h3>{{ event.title }}</h3>
+                                <img alt="" src="{{ event.image.url }}" >
+                            </div>
+                            <div class="events-details-all">
+                                <div class="events-details-time">
+                                    <div class="time-icon">
+                                        <i class="icofont icofont-clock-time"></i>
+                                    </div>
+                                    <div class="time-text">
+                                        <span>Start Time</span>
+                                        <p class="time-mrg">{{ event.start_time | time:"h:i A"}}</p>
+                                        <p>{{event | date:"d-M-Y"}}</p>
+                                    </div>
+                                </div>
+                                <div class="events-details-time mrg-xs">
+                                    <div class="time-icon">
+                                        <i class="icofont icofont-flag"></i>
+                                    </div>
+                                    <div class="time-text">
+                                        <span>Stop Time</span>
+                                        <p class="time-mrg">{{ event.end_time | time:"h:i A"}}</p>
+                                        <p>{{event | date:"d-M-Y"}}</p>
+                                    </div>
+                                </div>
+                                <div class="events-details-time mrg-xs">
+                                    <div class="time-icon">
+                                        <i class="icofont icofont-social-google-map"></i>
+                                    </div>
+                                    <div class="time-text">
+                                        <span>Address</span>
+                                        <!-- <p class="time-mrg">10:00 am</p> -->
+                                        <!-- <p>Monday,July 08,2016</p> -->
+                                        <p>{{ event.location }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="about-lectures">
+                                <h3>Event Description</h3>
+                                <p>
+                                    {{ event.description | safe  }}
+                                </p>
+                            </div>
+                            <div class="event-content">
+                                <h3 class="content2">Event Content</h3>
+                                <ul>
+                                    <li>Over 40 lectures and 60 hours of content</li>
+                                    <li>Live Project End to End Software Testing Training Included</li>
+                                    <li>Information packed practical training starting from basics to advanced testing techniques.</li>
+                                    <li>Course content designed by considering current software testing technology and the job market.</li>
+                                    <li>Best suitable for beginners to advanced level users and who learn faster when demonstrated.</li>
+                                    <li>Practical assignments at the end of every session.</li>
+                                </ul>
+                            </div>
+                            
+                            <!-- <div class="event-participants">
+                                <h3 class="content2">Event Participants</h3>
+                                <div class="row">
+                                    <div class="col-md-3 col-sm-3 col-xs-6">
+                                        <div class="participants-details text-center">
+                                            <a href="#">
+                                                <img src="{% static 'images/banner/11.jpg' %}" alt="">
+                                            </a>
+                                            <h3>T Rayed</h3>
+                                            <p>Chif Principal</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 col-sm-3 col-xs-6">
+                                        <div class="participants-details text-center">
+                                            <a href="#">
+                                                <img src="{% static 'images/banner/12.jpg' %}" alt="">
+                                            </a>
+                                            <h3>S Tasnim</h3>
+                                            <p>Head Teacher</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 col-sm-3 col-xs-6">
+                                        <div class="participants-details text-center mrg-xs">
+                                            <a href="#">
+                                                <img src="{% static 'images/banner/13.jpg' %}" alt="">
+                                            </a>
+                                            <h3>FH Shuvo</h3>
+                                            <p>Chif Principal</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 col-sm-3 col-xs-6">
+                                        <div class="participants-details text-center mrg-xs">
+                                            <a href="#">
+                                                <img src="{% static 'images/banner/14.jpg' %}" alt="">
+                                            </a>
+                                            <h3>Lalen</h3>
+                                            <p>Head Teacher</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> -->
+                        
+                        </div>
+                    </div>
+                  
+                </div>
+            </div>
+        </section>
+        <!-- End page content -->
+ 
+{% endblock %}

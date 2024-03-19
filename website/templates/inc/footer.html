@@ -1,0 +1,82 @@
+<footer class="footer-area ">
+    <div class="footer-top ptb-110 bg-success text-white  ">
+        <div class="container bg-success">
+            <div class="row">
+                <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+                    <div class="footer-text footer-social">
+                        <a href="index.html">
+                           <!---<img alt="" src="images/logo/logo-2.png">--> 
+                           <H1>B.T.I</H1>
+                        </a>
+                        <p>Our College is dedicated to providing our students with a well-rounded training experience coupled with character, education and exposure to technologies in order to prepare students who are confident, caring and responsible citizens with the capacity to compete globally.</p>
+                        <ul>
+                            <li><a href="#"><i class="zmdi zmdi-facebook"></i></a></li>
+                            <li><a href="#"><i class="zmdi zmdi-vimeo"></i></a></li>
+                            <li><a href="#"><i class="zmdi zmdi-tumblr"></i></a></li>
+                            <li><a href="#"><i class="zmdi zmdi-pinterest"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6 col-sm-6 col-12">
+                    <div class="footer-text mrg-xs mrg-sm-none">
+                        <h3>Quick Links</h3>
+                        <ul class="footer-text-all">
+                            <li class="active coloumn-one"><a href="/">HOME </i></a></li>
+                                <li><a href="{% url 'about' %}">ABOUT US  </a></li>  
+                                <li><a href="{% url 'courses' %}">Courses</a></li>
+                                <li><a href="{% url 'blog' %}">Blog</a></li>
+                                <li><a href="{% url 'contact' %}">Contact  </a></li>
+                                <li><a class="none-padding" href="{% url 'chanuadada' %}">Chanua Dada </a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6 col-sm-6 col-12">
+                    <div class="footer-text mrg-sm3 mrg-xs">
+                        <h3>pages</h3>
+                        <ul class="footer-text-all">
+                            <li class="active coloumn-one"><a href="/">HOME </i></a></li>
+                            <li><a href="{% url 'about' %}">ABOUT US  </a></li>  
+                            <li><a href="{% url 'courses' %}">Courses</a></li>
+                            <li><a href="{% url 'blog' %}">Blog</a></li>
+                            <li><a href="{% url 'contact' %}">Contact  </a></li>
+                            <li><a class="none-padding" href="{% url 'chanuadada' %}">Chanua Dada </a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-5 col-md-6 col-sm-6 col-12">
+                    <div class="footer-text mrg-sm3 mrg-xs">
+                       <h3>Contact Us</h3>
+                       <form action="/contact/" method="post">
+                        {% csrf_token %}
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <input placeholder="Name*"  name="name" type="text">
+                                </div>
+                                <div class="col-md-6">
+                                    <input class="in-mrg" placeholder="Email*" name="email" type="email">
+                                </div>
+                                <div class="col-md-12" >
+                                    <textarea placeholder="Message*" name="message"></textarea>
+                                    <button class=" submit "   type="submit">send</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="footer-bottom-text ptb-20">
+                        <p>
+                            Copyrights © <a href="https://boltechinstitute.com/" target="_blank"> 2023 BOLTECH TRAINING INSTITUTE</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>

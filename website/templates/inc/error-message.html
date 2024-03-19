@@ -1,0 +1,40 @@
+      <!-- Success Alert Messages -->
+      <div class="card-text">
+        {% if messages %} 
+        <script>
+            swal({
+                title: "Success!",
+                text: "{% for message in messages %} {{ message | safe }} \n {% endfor %}",
+                icon: "success",
+                button: "OK",
+            })
+        </script>
+
+        <div class="alert alert-success">
+            {% for message in messages %}
+            {{ message | safe }} <br />
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+    <!-- Danger  Alert Messages -->
+    <div class="card-text">
+        {% if errors %}
+          <script>
+                swal({
+                    title: "Error!",
+                    text: "{% for error in errors %} {{ error | safe }} \n {% endfor %}",
+                    icon: "error",
+                    button: "OK",
+                })
+          </script>
+            <div class="alert alert-danger">
+                {% for error in errors %}
+                {{ error | safe }} <br/>
+                {% endfor %}
+             </div>
+
+         {% endif %}
+    </div> 
+
+  

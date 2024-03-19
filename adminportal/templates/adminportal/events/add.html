@@ -1,0 +1,107 @@
+{% extends "adminportal/base.html" %}
+{% load static %}
+{% load custom_filters %}
+
+{% block title %} Add  Event {% endblock %}
+
+
+{% block page_title %} Add Event {% endblock %}
+{% block  breadcrumb %}
+    <a  href="{% url 'admin-events' %}" class="breadcrumb-item"> Events </a>
+    <li class="breadcrumb-item active"> Add Event  </li>
+
+{% endblock %}
+
+{% block  content_area %}
+
+<section>
+    <div class="card rounded-0">
+        <div class="card-body">
+          <h5 class="card-title">Fill in  the  event details</h5>
+
+          <!-- EVENTS UPLOAD  FORM -->
+          <form method="post" enctype="multipart/form-data" id="event-upload-form">
+
+            {% csrf_token %} 
+
+              
+              <div class="col-sm-12"> 
+
+                <div class="form-group mb-2">
+                  <label for="eventTitle" class="mb-1">Title</label>
+                  <input name="title" type="text" class="form-control" id="eventTitle"placeholder="Event Title"  required>
+                </div>
+
+                <!-- date  -->
+                <div class="form-group mb-2">
+                  <label for="eventDate" class="mb-1">Date</label>
+                  <input name="date" type="date" class="form-control" id="eventDate" 
+                    value="{{ form_data.date | date:'Y-m-d' }}"
+                  placeholder="Event Date"  required>
+                </div>
+
+                <!-- start time -->
+                <div class="form-group mb-2">
+                  <label for="eventStartTime" class="mb-1">Start Time</label>
+                  <input name="start_time" type="time" class="form-control" id="eventStartTime"
+                    value="{{ form_data.start_time | date:'H:i' }}"
+                  placeholder="Event Start Time"  required>
+                </div>
+
+                <!-- Endtime -->
+                <div class="form-group mb-2">
+                  <label for="eventEndTime" class="mb-1">End Time</label>
+                  <input name="end_time" type="time" class="form-control" id="eventEndTime" placeholder="Event End Time" 
+                  value="{{ form_data.end_time | date:'H:i' }}"
+                  required>
+                </div>
+
+                <!-- image -->
+                <div class="form-group mb-2">
+                  <label for="eventImage" class="mb-1">Image</label>
+                  <input name="image" type="file" class="form-control" id="eventImage" 
+                    value="{{ form_data.image }}"
+                  placeholder="Event Image"  required>
+                </div>
+
+
+
+           
+
+                <div class="form-group mb-3">
+                  <label class="mb-1" for="floatingTextarea" >Description</label>
+                  <textarea name="description" class="form-control tinymce-editor" placeholder="" id="floatingTextarea" style="height: 100px;">
+                    {{ form_data.description }}
+                  </textarea>
+                </div> 
+
+                      <!-- submit  button resides  here -->
+                    <div class="col-sm-12">
+                        <button type="submit" class="btn btn-primary">
+                          Submit 
+                          
+                        </button>
+                    </div>
+                    <script>
+                        let eventUploadForm = document.querySelector("#event-upload-form")
+                        let submitBtn = eventUploadForm.querySelector("button[type='submit']")
+                        eventUploadForm.onsubmit =(e)=>{
+                          //e.preventDefault()
+                          submitBtn.innerHTML=`
+                          <span class="spinner-border" ></span>
+                          `
+                        }
+                    </script>
+              </div>
+
+
+     
+          </form>
+          <!-- End  EVENTS UPLOAD  FORM -->
+
+        </div>
+      </div>
+
+    
+</section>
+{% endblock %}

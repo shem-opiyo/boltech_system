@@ -1,0 +1,173 @@
+{% extends "adminportal/base.html" %}
+{% load static %}
+{% load custom_filters %}
+
+{% block title %} Course | {{ course.name }} {% endblock %}
+
+
+{% block page_title %} View Course {% endblock %}
+{% block  breadcrumb %}
+    <a  href="{% url 'admin-courses' %}" class="breadcrumb-item"> Courses </a>
+    <li class="breadcrumb-item active"> {{ course.name }}  </li>
+
+{% endblock %}
+
+{% block  content_area %}
+
+<section>
+
+  <div class="row">
+
+    <div class="action-buttons d-flex justify-content-end mb-2">
+      <div class="d-flex justify-content-between">
+        <button class="btn btn-success mx-2" data-bs-target="#editCourseModal" data-bs-toggle="modal" >Edit</button>
+        <button  class="btn btn-danger" onclick="deleteCourse(event)">Delete</button>
+
+          <form method="post" id="delete-course-form">
+            {% csrf_token %}
+              <input type="text" name="action" value="delete" hidden>
+          </form>
+          <script>
+            function deleteCourse(event){
+              let deleteCourseForm = document.querySelector('#delete-course-form');
+
+              if (confirm('Are you sure you want to delete this course?')) {
+                deleteCourseForm.submit();
+              }
+
+            }
+          </script>
+      </div>
+    </div>
+    
+    <div class="card mb-3 col-12">
+      <div class="row g-0">
+        <div class="col-md-6">  
+    
+    
+            <div data-interval="500" id="viewCourseFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
+              <div class="carousel-inner"> 
+                <style scoped>
+                  .carousel-item{
+                    height: 400px;
+                  }.carousel-item img{
+                    height: 100%;
+                    aspect-ratio: 16/9;
+                    object-fit: cover;
+                  }
+    
+                </style>
+                
+                <div class="carousel-item active ">
+                  <img  src="{{course.image.url}}" class="img-fluid rounded-start d-block w-100" alt="...">
+                </div>
+               
+ 
+    
+              </div>
+    
+              <button class="carousel-control-prev" type="button" data-bs-target="#viewCourseFade" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+              </button>
+              <button class="carousel-control-next" type="button" data-bs-target="#viewCourseFade" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+              </button>
+    
+            </div> 
+            <!-- End Slides with fade transition -->
+    
+    
+    
+        </div>
+        <div class="col-md-6">
+            <div class="card-body">
+            <h1 class="card-title" style="font-size:2rem;">{{ course.name }}</h1>
+            <p class="card-text">{{course.description | safe }}</p>
+            </div>
+        </div>
+      </div>
+    </div><!-- End Card with an image on left -->
+    
+    <!-- static modal for editing course -->
+
+
+    <div class="modal fade" id="editCourseModal" data-bs-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title fw-bold" id="staticBackdropLabel">Edit Course</h5>
+              <button type="button" class="btn close fw-bold" data-bs-dismiss="modal" aria-label="Close">
+                   <span class="fs-2" aria-hidden="true">&times;</span>
+              </button>
+          </div>
+  
+          <div class="modal-body">
+  
+              <div class="row">
+                <form method="post" enctype="multipart/form-data" id="courseEditform">
+
+                  {% csrf_token %} 
+      
+                  <input type="text" name="action" value="edit" hidden>
+
+                    <div class="col-sm-12"> 
+                         
+                      <div class="form-group mb-2">
+                        <label for="courseName" class="mb-1">Name</label>
+                        <input name="name" type="text" value="{{course.name}}" class="form-control" id="courseName"placeholder="Course Name"  required>
+                      </div>
+                    
+                
+  
+                      <div class="form-group mb-2">
+                        <label for="startOn" class="mb-1">Starts On </label>
+                        <input name="start_on" type="date" value="{{course.start_on}}" class="form-control" id="startOn" required>
+                      </div>
+  
+                      <div class="form-group mb-2">
+                        <label for="duration" class="mb-1">Duration in Months</label>
+                        <input name="duration" type="number" value="{{course.duration}}" class="form-control" id="duration" placeholder="Duration in months" required>
+                      </div>
+                      
+                  
+                      <div class="form-group mb-2">
+                          <label for="courseImage" class="col-form-label"> Image</label>
+                          <input  id="courseImage" name="image" type="file" class="form-control" accept="image/*" required>
+                      </div>
+  
+                      <div class="form-group mb-3">
+                        <label class="mb-1" for="floatingTextarea" >Description</label>
+                        <textarea name="description" class="form-control tinymce-editor" placeholder="" id="floatingTextarea" style="height: 100px;">
+                          {{course.description}}
+                        </textarea>
+                      </div> 
+
+                    </div>
+      
+      
+           
+                </form>
+              </div>
+              
+          </div>
+          
+          <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary save-cart-item-changes"
+                onclick="document.querySelector('#courseEditform').submit();"
+              >
+                  Save changes
+                  <span><i class="fas fa-arrow-circle-right"></i></span>
+  
+              </button>
+          </div>
+          </div>
+      </div>
+      </div>
+
+  </div>
+
+</section>
+{% endblock %}
