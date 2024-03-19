@@ -1,6 +1,6 @@
 # BoltTech Institute 
 
-- School website system 
+- School website system.
 
 
 
